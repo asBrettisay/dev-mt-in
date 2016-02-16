@@ -1,10 +1,12 @@
 angular.module('devMtIn')
-.controller('homeCtrl', function($scope) {
+.controller('homeCtrl', function($scope, profileService) {
 
   $scope.myProfile = {
     name: 'Brett Caudill',
     friends: [{name: 'Ashleigh'},{name: 'Pepperoni'}, {name: 'Mike'}, {name: 'Daniel'}, {name: 'Cody'}]
   }
+
+  profileService.serviceTest();
 
   $scope.sortOptions = [{
                           display: 'Ascending',
