@@ -30,8 +30,8 @@
 
       <input ng-model="myProfile.favoriteColor" ng-disabled="!editing" id="favColor" type="text" placeholder="Favorite Color">
       <br />
-      <button class="l-btn l-btn-success">Save</button>
-      <button class="l-btn l-btn-danger">Delete</button>
+      <button ng-click="saveProfile(myProfile)" class="l-btn l-btn-success">Save</button>
+      <button ng-click="deleteProfile()" class="l-btn l-btn-danger">Delete</button>
     </div>
   </div>
 

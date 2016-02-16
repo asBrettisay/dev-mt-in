@@ -1,9 +1,10 @@
 describe('devMtIn', function() {
   beforeEach(module('devMtIn'));
 
-  var $controller;
-  beforeEach(inject(function(_$controller_) {
+  var $controller, profileService;
+  beforeEach(inject(function(_$controller_, _profileService_) {
     $controller = _$controller_;
+    profileService = _profileService_;
   }));
 
   describe('homeCtrl', function() {
@@ -14,23 +15,38 @@ describe('devMtIn', function() {
       controller = $controller('homeCtrl', { $scope: $scope });
     });
 
-    it('should be an array of objects', function() {
-      expect($scope.myProfile.friends).toEqual(jasmine.any(Array))
-      $scope.myProfile.friends.forEach(function(thing) {
-        expect(thing).toEqual(jasmine.any(Object))
-      });
-    });
     it('should set editing to false by default', function() {
       expect($scope.editing).toEqual(false);
     })
   })
 
-  describe('service testing', function(){
-    var profileService
-    beforeEach(module('devMtIn'))
-    beforeEach(inject(function($injector){
-      profileService = $injector.get('serviceTest')
-    }));
+  describe('profileService', function(){
+    // beforeEach(module('devMtIn'))
+    // beforeEach(inject(function($injector){
+    //   profileService = $injector.get('saveProfile')
+    // }));
+    var testProfile = {
+      name: "Tester Mcgee",
+      likes: "Snowboarding",
+      favorites: "Everything",
+      friends: {name: "Stu"}
+    };
+
+    it('should save a profile to local storage', function () {
+
+      profileService.saveProfile(testProfile);
+      expect(JSON.parse(localStorage['profile'])).toEqual(testProfile);
+    });
+
+    it('should recover a profile from local storage', function() {
+      var answer = profileService.checkForProfile();
+      expect(answer).toEqual(testProfile)
+    })
+
+    it('should delete the profile with the deleteProfile function', function() {
+      profileService.deleteProfile();
+      expect(localStorage['profile']).toEqual(undefined);
+    })
 
 
   });
