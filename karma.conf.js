@@ -18,10 +18,10 @@ module.exports = function(config) {
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'js/app.js',
-      'js/homeCtrl.js',
       'js/services/profileService.js',
+      'js/homeCtrl.js',
       'test/*',
-      'js/spec/test.js'
+      'test/spec/test.js'
     ],
 
 

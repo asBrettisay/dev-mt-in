@@ -20,9 +20,16 @@ describe('devMtIn', function() {
         expect(thing).toEqual(jasmine.any(Object))
       });
     });
-
-    it('should connect profileService to itself', function() {
-      $scope.profileService.serviceTest();
-    })
   });
+})
+
+describe('service testing', function(){
+  var profileService
+  beforeEach(module('devMtIn'))
+  beforeEach(inject(function(_profileService_){
+    profileService = _profileService_
+  }))
+  it('should see a profiles service', function(){
+    expect(profileService.serviceTest()).toBeDefined()
+  })
 });

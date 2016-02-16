@@ -6,8 +6,6 @@ angular.module('devMtIn')
     friends: [{name: 'Ashleigh'},{name: 'Pepperoni'}, {name: 'Mike'}, {name: 'Daniel'}, {name: 'Cody'}]
   }
 
-  profileService.serviceTest();
-
   $scope.sortOptions = [{
                           display: 'Ascending',
                           value: false
@@ -16,5 +14,6 @@ angular.module('devMtIn')
                           display: 'Descending',
                           value: true
                         }];
+  $scope.editing = false;
 
 })
