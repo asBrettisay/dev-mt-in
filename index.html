@@ -17,18 +17,18 @@
   <div class="wrapper">
     <div>
       <h2>Profile</h2>
-      <button class="l-btn l-btn-main">Editing :</button>
+      <button ng-click="editing = !editing" class="l-btn l-btn-main">Editing :</button>
     </div>
 
     <div>
 
-      <input ng-model="myProfile.name" id="name" type="text" placeholder="Your Name">
+      <input ng-model="myProfile.name" ng-disabled="!editing" id="name" type="text" placeholder="Your Name">
       <br />
 
-      <input id="likes" type="text" placeholder="Likes">
+      <input ng-model="myProfile.likes" ng-disabled="!editing" id="likes" type="text" placeholder="Likes">
       <br />
 
-      <input id="favColor" type="text" placeholder="Favorite Color">
+      <input ng-model="myProfile.favoriteColor" ng-disabled="!editing" id="favColor" type="text" placeholder="Favorite Color">
       <br />
       <button class="l-btn l-btn-success">Save</button>
       <button class="l-btn l-btn-danger">Delete</button>
