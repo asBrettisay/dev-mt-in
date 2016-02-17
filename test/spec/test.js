@@ -1,38 +1,30 @@
 describe('devMtIn', function() {
   beforeEach(module('devMtIn'));
 
-  var $controller, profileService, makeController, $rootScope;
-  beforeEach(inject(function(_$rootScope_, _$controller_, _profileService_) {
-    $controller = _$controller_;
-    profileService = _profileService_;
-    $rootScope = _$rootScope_;
-  }));
 
   describe('homeCtrl', function() {
-    var scope;
-    beforeEach(inject(function() {
+    var httpBackend, profileService, testProfile;
+    beforeEach(inject(function(_profileService_, $httpBackend, $rootScope, _$controller_) {
+      profileService = _profileService_;
+      httpBackend = $httpBackend;
+      testProfile = {name: 'stu', likes: 'cats'};
       scope = $rootScope.$new();
-      controller = $controller('homeCtrl', { $scope: scope })
+      $controller = _$controller_;
     }));
 
-    it('should send profile to server', function() {
-      var profile = { _id: 'x', name: "Billy", likes: "trucks" };
-      scope.saveProfile(profile);
-      scope.checkForProfile().then(function(thisResult) {
-        var result = thisResult;
+    it('should check for a profile', function() {
+      controller = $controller('homeCtrl', {$scope: scope});
+      var profileId = "1";
+      httpBackend.whenPOST("http://connections.devmounta.in/api/profiles/").respond(true)
+      httpBackend.whenGET("http://connections.devmounta.in/api/profiles/undefined").respond(testProfile)
+      scope.saveProfile(testProfile);
+      profileService.checkForProfile().then(function(response) {
+        expect(response.data).toEqual(testProfile);
       });
-      expect(result).toEqual(profile);
-    })
-  });
+      httpBackend.flush();
+    });
 
-  describe('profileService', function(){
 
-    var testProfile = {
-      name: "Tester Mcgee",
-      likes: "Snowboarding",
-      favorites: "Everything",
-      friends: {name: "Stu"}
-    };
+  })
 
-  });
 })

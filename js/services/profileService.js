@@ -2,9 +2,6 @@ angular.module('devMtIn')
 .service('profileService', function($http) {
 
   var baseUrl = 'http://connections.devmounta.in';
-  this.serviceTest = function() {
-    console.log("profileService is connected!");
-  }
 
   this.saveProfile = function(profile) {
     return $http({
