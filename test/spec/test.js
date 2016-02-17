@@ -1,35 +1,32 @@
 describe('devMtIn', function() {
   beforeEach(module('devMtIn'));
 
-  var $controller, profileService;
-  beforeEach(inject(function(_$controller_, _profileService_) {
+  var $controller, profileService, makeController, $rootScope;
+  beforeEach(inject(function(_$rootScope_, _$controller_, _profileService_) {
     $controller = _$controller_;
     profileService = _profileService_;
+    $rootScope = _$rootScope_;
   }));
 
   describe('homeCtrl', function() {
-    var scope, controller;
-
-    beforeEach(inject(function($rootScope) {
+    var scope;
+    beforeEach(inject(function() {
       scope = $rootScope.$new();
-      controller = $controller('homeCtrl', { $scope: scope });
+      controller = $controller('homeCtrl', { $scope: scope })
     }));
 
-    it('should save a profile and recover it', function() {
-      var profile = { name: 'Billy', likes: 'bananas', favoriteColor: 'red' };
-      scope.saveProfile(profile)
-      var id = JSON.parse(localStorage.getItem('profileId'));
-
-      var result = scope.checkForProfile(id);
-      expect(scope.myProfile).toEqual(profile);
+    it('should send profile to server', function() {
+      var profile = { _id: 'x', name: "Billy", likes: "trucks" };
+      scope.saveProfile(profile);
+      scope.checkForProfile().then(function(thisResult) {
+        var result = thisResult;
+      });
+      expect(result).toEqual(profile);
     })
-  })
+  });
 
   describe('profileService', function(){
-    // beforeEach(module('devMtIn'))
-    // beforeEach(inject(function($injector){
-    //   profileService = $injector.get('saveProfile')
-    // }));
+
     var testProfile = {
       name: "Tester Mcgee",
       likes: "Snowboarding",
