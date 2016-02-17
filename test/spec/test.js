@@ -8,15 +8,23 @@ describe('devMtIn', function() {
   }));
 
   describe('homeCtrl', function() {
-    var $scope, controller;
+    var scope, controller;
 
-    beforeEach(function() {
-      $scope = {};
-      controller = $controller('homeCtrl', { $scope: $scope });
-    });
+    beforeEach(inject(function($rootScope) {
+      scope = $rootScope.$new();
+      controller = $controller('homeCtrl', { $scope: scope });
+    }));
 
-    it('should set editing to false by default', function() {
-      expect($scope.editing).toEqual(false);
+    it('should get a profile from localStorage', function() {
+      scope.myProfile = profileService.checkForProfile();
+      expect(scope.myProfile).toEqual(jasmine.any(Object))
+    })
+
+    it('should save a profile to localStorage', function() {
+      var profile = { name: 'brett', likes: 'dogs', favoriteColor: 'blue' };
+      scope.saveProfile(profile);
+      expect(scope.editing).toEqual(false);
+      expect(localStorage['profile']).toEqual(JSON.stringify(profile));
     })
   })
 
@@ -33,7 +41,6 @@ describe('devMtIn', function() {
     };
 
     it('should save a profile to local storage', function () {
-
       profileService.saveProfile(testProfile);
       expect(JSON.parse(localStorage['profile'])).toEqual(testProfile);
     });
