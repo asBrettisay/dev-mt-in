@@ -30,4 +30,15 @@ angular.module('devMtIn')
     profileService.saveProfile(profile);
     $scope.editing = false;
   }
+
+  $scope.deleteProfile = function() {
+    profileService.deleteProfile()
+    .then(function(deleteProfile) {
+      localStorage.removeItem('profileId');
+      $scope.myProfile = {};
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
+  }
 })

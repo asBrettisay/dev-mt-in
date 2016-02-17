@@ -29,8 +29,11 @@ angular.module('devMtIn')
   }
 
   this.deleteProfile = function() {
-    localStorage.removeItem('profile');
-    this.myProfile = this.checkForProfile();
+    var profileId = JSON.parse(localStorage.getItem('profileId')).profileId;
+    return $http({
+      method: 'DELETE',
+      url: baseUrl + '/api/profiles/' + profileId
+    });
   }
 
 });
