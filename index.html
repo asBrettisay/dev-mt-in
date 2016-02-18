@@ -38,11 +38,11 @@
   <div class="l-container">
     <h2>Friends</h2>
 
-    <button class="l-btn l-btn-main">Go</button>
+    <button ng-click="findFriends(findFriend.name)" class="l-btn l-btn-main">Go</button>
     <input ng-model="findFriend.name" type="text" placeholder="Find Friends">
     <select ng-model="sortReverse" ng-options="option.value as option.display for option in sortOptions"></select>
     <div class="friendList" ng-repeat="friend in myProfile.friends | filter: findFriend.name | orderBy: 'name' : sortReverse">
-      <span class="closeBtn"></span>
+      <span ng-click="removeFriend(friend._id)" class="closeBtn"></span>
         {{ friend.name }}
       <br />
       <div class="secondConnection friendList">
@@ -51,7 +51,7 @@
     </div>
   </div>
 
-	<div id="myModalMask">
+  <div id="myModalMask">
 		<div id="myModal">
 			<div>
 				<div class="modalTitle">
@@ -60,10 +60,16 @@
 				</div>
 					<br />
 				<div class="friendList">
+					<span ng-repeat="friend in potentialFriends" class="friend">
+					  {{friend.name}}
+            <button ng-click="addFriend(friend._id)" class="l-btn l-btn-main">Add</button>
+					</span> Potential Friends
+
 				</div>
 			</div>
 		</div>
 	</div>
+
   <!--Angular-->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
   <!-- Apps -->
@@ -72,6 +78,7 @@
   <script src="js/homeCtrl.js"></script>
   <!-- Services -->
   <script src="js/services/profileService.js"></script>
+  <script src="js/services/friendService.js"></script>
 </body>
 
 </html>

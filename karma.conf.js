@@ -19,8 +19,8 @@ module.exports = function(config) {
       'bower_components/angular-mocks/angular-mocks.js',
       'js/app.js',
       'js/services/profileService.js',
+      'js/services/friendService.js',
       'js/homeCtrl.js',
-      'test/*',
       'test/spec/test.js'
     ],
 
