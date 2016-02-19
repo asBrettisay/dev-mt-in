@@ -2,7 +2,7 @@ angular.module('devMtIn')
 .controller('homeCtrl', function($scope, profileService, friendService) {
 
   $scope.checkForProfile = function() {
-    var profileId = localStorage.getItem('profileId');
+    var profileId = JSON.parse(localStorage.getItem('profileId'));
     if (profileId) {
       profileService.checkForProfile(profileId.profileId)
       .then(function(profile) {

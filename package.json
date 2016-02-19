@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "karma": "*",
+    "karma-jasmine": "*",
+    "karma-chrome-launcher": "*",
+    "jasmine-core": "*"
+  }
+}

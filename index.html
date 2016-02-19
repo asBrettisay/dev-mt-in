@@ -41,12 +41,16 @@
     <button ng-click="findFriends(findFriend.name)" class="l-btn l-btn-main">Go</button>
     <input ng-model="findFriend.name" type="text" placeholder="Find Friends">
     <select ng-model="sortReverse" ng-options="option.value as option.display for option in sortOptions"></select>
+
     <div class="friendList" ng-repeat="friend in myProfile.friends | filter: findFriend.name | orderBy: 'name' : sortReverse">
       <span ng-click="removeFriend(friend._id)" class="closeBtn"></span>
         {{ friend.name }}
-      <br />
+      <br>
       <div class="secondConnection friendList">
         My Second Connections
+        <div ng-repeat="friend in friend.friends track by $index">
+        {{friend.name}}
+        </div>
       </div>
     </div>
   </div>

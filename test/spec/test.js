@@ -14,7 +14,7 @@ describe('devMtIn', function() {
       store = {};
       baseUrl = 'http://connections.devmounta.in';
 
-      spyOn(localStorage, 'getItem').and.returnValue({profileId: "1"});
+      spyOn(localStorage, 'getItem').and.returnValue('{"profileId":"1"}');
       spyOn(localStorage, 'setItem').and.returnValue({profileId: "1"});
       controller = $controller('homeCtrl', {$scope: scope});
 
@@ -50,8 +50,13 @@ describe('devMtIn', function() {
       done();
       expect(scope.myProfile.friends).toEqual(friend);
     })
+
+    it('should get friends of friends', function(done) {
+      scope.myProfile = {_id: "1", name: "Brett", friends:[{_id: "2"}]}
+      httpBackend.whenGET("http://connections.devmounta.in/api/friends-friends/2").respond([{name: "dude"}])
+      scope.checkForProfile();
+      done();
+      expect(scope.myProfile.friends[0].friends[0].name).toEqual("dude");
+    })
   })
-
-
-
 })
